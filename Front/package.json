@@ -76,11 +76,6 @@
       "last 1 safari version"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run check"
-    }
-  },
   "prettier": {
     "trailingComma": "none",
     "tabWidth": 2,
