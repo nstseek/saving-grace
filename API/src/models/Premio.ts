@@ -8,8 +8,10 @@ export class Premio extends Base {
   valor: number;
   titulo: string;
   descricao: string;
-  empresa: Empresa;
-  imagem: Imagem;
+  Empresa: Empresa;
+  EmpresaId: number;
+  Imagem: Imagem;
+  ImagemId: number;
 }
 
 const initObj: InitObject<Premio> = {

@@ -5,8 +5,9 @@ import { Empresa } from './Empresa';
 
 export class Imagem extends Base {
   nomeArquivo: string;
-  conteudo: string;
-  empresa: Empresa;
+  conteudo: Uint8Array;
+  Empresa: Empresa;
+  EmpresaId: number;
 }
 
 const initObj: InitObject<Imagem> = {

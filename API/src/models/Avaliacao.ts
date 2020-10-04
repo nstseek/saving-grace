@@ -8,8 +8,10 @@ export class Avaliacao extends Base {
   titulo: string;
   conteudo: string;
   rating: number;
-  empresa: Empresa;
-  usuario: Usuario;
+  Empresa: Empresa;
+  EmpresaId: number;
+  Usuario: Usuario;
+  UsuarioId: number;
 }
 
 const initObj: InitObject<Avaliacao> = {

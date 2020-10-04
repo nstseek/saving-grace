@@ -10,7 +10,8 @@ export class Usuario extends Base {
   senha: string;
   cnpj?: string;
   cpf?: string;
-  imagem?: Imagem;
+  Imagem?: Imagem;
+  ImagemId: number;
 }
 
 const initObj: InitObject<Usuario> = {

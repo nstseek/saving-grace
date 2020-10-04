@@ -6,8 +6,10 @@ import { Usuario } from './Usuario';
 
 export class Transacao extends Base {
   valor: number;
-  empresa: Empresa;
-  usuario: Usuario;
+  Empresa: Empresa;
+  EmpresaId: number;
+  Usuario: Usuario;
+  UsuarioId: number;
 }
 
 const initObj: InitObject<Transacao> = {

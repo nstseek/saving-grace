@@ -10,8 +10,6 @@ import usuarioRouter from './Usuario';
 
 const router = express.Router();
 
-console.log('to setando as rotas');
-
 router.use('/avaliacao', avaliacaoRouter);
 router.use('/comentario', comentarioRouter);
 router.use('/empresa', empresaRouter);

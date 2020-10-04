@@ -25,7 +25,7 @@ Avaliacao.belongsTo(Empresa);
 
 // Comentario relations
 
-Comentario.hasOne(Comentario);
+Comentario.hasMany(Comentario);
 Comentario.belongsTo(Comentario);
 
 Usuario.hasMany(Comentario, {
@@ -102,5 +102,5 @@ Transacao.belongsTo(Empresa);
 
 // Usuario relations
 
-Imagem.hasOne(Usuario);
+Imagem.hasMany(Usuario);
 Usuario.belongsTo(Imagem);

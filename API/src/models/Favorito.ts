@@ -4,8 +4,10 @@ import { Empresa } from './Empresa';
 import { Usuario } from './Usuario';
 
 export class Favorito extends Base {  
-  empresa: Empresa;
-  usuario: Usuario;
+  Empresa: Empresa;
+  EmpresaId: number;
+  Usuario: Usuario;
+  UsuarioId: number;
 }
 
 const initObj: InitObject<Favorito> = {

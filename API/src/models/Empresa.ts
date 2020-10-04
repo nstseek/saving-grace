@@ -7,7 +7,8 @@ export class Empresa extends Base {
   nome: string;
   descricao: string;
   saldo: number;
-  usuario: Usuario;
+  Usuario: Usuario;
+  UsuarioId: number;
   website?: string;
   facebook?: string;
   twitter?: string;

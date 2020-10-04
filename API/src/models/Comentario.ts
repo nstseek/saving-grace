@@ -7,9 +7,12 @@ import { Usuario } from './Usuario';
 export class Comentario extends Base {
   titulo: string;
   conteudo: string;
-  empresa: Empresa;
-  usuario: Usuario;
-  comentario: Comentario;
+  Empresa: Empresa;
+  EmpresaId: number;
+  Usuario: Usuario;
+  UsuarioId: number;
+  Comentario: Comentario;
+  ComentarioId: number;
 }
 
 const initObj: InitObject<Comentario> = {
