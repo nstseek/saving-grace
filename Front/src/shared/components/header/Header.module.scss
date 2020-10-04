@@ -1,0 +1,30 @@
+@import '../../../scss/variables.scss';
+
+div.header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > button:first-child {
+        position: absolute;
+        left: 0;
+        padding-left: 20px;
+    }
+
+    img {
+        object-fit: contain;
+        height: 50px;
+    }
+}
+
+.menuLateral {
+    min-width: 250px;
+    margin-top: 20px;
+
+    p {
+        border-bottom: 1px solid lightgray;
+        margin: 0;
+        padding: 15px;
+    }
+}
