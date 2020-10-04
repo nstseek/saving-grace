@@ -17,41 +17,75 @@ consumes:
 produces:
   - application/json
 paths:
-  /hello:
+  /empresa:
     # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
+    x-swagger-router-controller: empresa
     get:
-      description: Returns 'Hello' to the caller
+      description: Retorna uma ou mais Empresas
       # used as the method name of the controller
-      operationId: hello
+      operationId: empresa
       parameters:
-        - name: name
+        - name: id
           in: query
-          description: The name of the person to whom to say hello
+          description: Filtra o retorno por id
+          required: false
+          type: number
+        - name: from
+          in: query
+          description: Define o inicio do intervalo de linhas a ser retornado
+          required: false
+          type: number
+        - name: to
+          in: query
+          description: Define o fim do intervalo de linhas a ser retornado
+          required: false
+          type: number
+        - name: orderBy
+          in: query
+          description: Define o nome da propriedade que será utilizada para ordenar
           required: false
           type: string
+        - name: orderType
+          in: query
+          description: Define o método de ordenação
+          required: false
+          type: string
+        - name: usuario
+          in: query
+          description: Define se o usuário deve ser incluido no retorno
+          required: false
+          type: boolean
+        - name: avaliacao
+          in: query
+          description: Define se as avaliações devem ser incluidas no retorno
+          required: false
+          type: boolean
+        - name: premio
+          in: query
+          description: Define se os prêmios devem ser incluidos no retorno
+          required: false
+          type: boolean
+        - name: transacao
+          in: query
+          description: Define se as transações devem ser incluidas no retorno
+          required: false
+          type: boolean
+        - name: comentario
+          in: query
+          description: Define se os comentários devem ser incluidos no retorno
+          required: false
+          type: boolean
       responses:
-        "200":
+        "default":
           description: Success
           schema:
             # a pointer to a definition
             $ref: "#/definitions/HelloWorldResponse"
-        # responses may fall through to errors
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
   HelloWorldResponse:
-    required:
-      - message
-    properties:
-      message:
-        type: string
-  ErrorResponse:
     required:
       - message
     properties:
