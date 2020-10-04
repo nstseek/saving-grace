@@ -239,6 +239,8 @@ router.post(
       });
       if (!response) {
         createResponse(404, 'Usuário não encontrado', req, res);
+      }else {
+        createResponse(200, response, req, res);
       }
     } catch (e) {
       createResponse(500, e, req, res);
