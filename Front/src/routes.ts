@@ -1,7 +1,7 @@
 import React from 'react';
 
 export enum Routes {
-  Inicio = '/inicio',
+  Home = '/',
 }
 
 export type RouteLinks = {
@@ -9,7 +9,7 @@ export type RouteLinks = {
 };
 
 export const routeLinks: RouteLinks = {
-  Inicio: React.createRef<HTMLAnchorElement>(),
+  Home: React.createRef<HTMLAnchorElement>(),
 };
 
 export const LinkContext = React.createContext<RouteLinks>(null);

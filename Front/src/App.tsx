@@ -3,6 +3,10 @@ import React from 'react';
 import './App.scss';
 import Header from './shared/components/header/Header';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import CarouselMobile from './shared/components/carousel-mobile/CarouselMobile';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { Routes } from './routes';
+import Home from './pages/home/Home';
 
 const theme = createMuiTheme({
   palette: {
@@ -20,7 +24,13 @@ function App() {
     <div className='App'>
       <ThemeProvider theme={theme}>
         <Header />
-
+        <BrowserRouter>
+            <Switch>
+              <Route path={Routes.Home} component={Home} />
+              {/* {this.props.isLogged ? <Route path={Routes.Calendario} component={Calendario} /> : null} */}
+              {/* <Redirect path="/" to={this.props.isLogged ? Routes.Calendario : Routes.Login} /> */}
+            </Switch>
+          </BrowserRouter>
       </ThemeProvider>
       {/* <Card>
         <CardContent>Saving Grace app working!</CardContent>
