@@ -13,57 +13,90 @@ import { Dialog, DialogTitle } from '@material-ui/core';
 import Login from '../login/Login';
 
 const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            flexGrow: 1,
-        },
-        menuButton: {
-            marginRight: theme.spacing(2),
-        },
-        title: {
-            flexGrow: 1,
-        },
-    }),
+  createStyles({
+    root: {
+      flexGrow: 1
+    },
+    menuButton: {
+      marginRight: theme.spacing(2)
+    },
+    title: {
+      flexGrow: 1
+    }
+  })
 );
 
 export default function Header() {
-    const classes = useStyles();
-    const [state, setState] = React.useState({
-        menuLateral: false,
-        login: false
-    });
+  const classes = useStyles();
+  const [state, setState] = React.useState({
+    menuLateral: false,
+    login: false
+  });
 
-    const toggleMenuLateral = () => setState({...state, menuLateral: !state.menuLateral });
+  const toggleMenuLateral = () =>
+    setState({ ...state, menuLateral: !state.menuLateral });
 
-    const toggleLogin = () => setState({...state, login: !state.login, menuLateral: false});
+  const toggleLogin = () =>
+    setState({ ...state, login: !state.login, menuLateral: false });
 
-    return (
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar className={styles.header}>
-                    <IconButton edge="start" onClick={toggleMenuLateral} className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
-                    {/* <Typography variant="h6" className={classes.title}>
+  return (
+    <div className={classes.root}>
+      <AppBar position='static'>
+        <Toolbar className={styles.header}>
+          <IconButton
+            edge='start'
+            onClick={toggleMenuLateral}
+            className={classes.menuButton}
+            color='inherit'
+            aria-label='menu'>
+            <MenuIcon />
+          </IconButton>
+          {/* <Typography variant="h6" className={classes.title}>
             News
           </Typography> */}
-                    <img src={LogoSavingGrace} />
-                    <h4>SAVING GRACE</h4>
-                    {/* <Button color="inherit">Login</Button> */}
-                </Toolbar>
-            </AppBar>
-            <Drawer anchor={'left'} open={state.menuLateral} onClose={toggleMenuLateral}>
-                <div className={styles.menuLateral}>
-                        <p onClick={() => window.location.href = '/'}>Home</p>
-                        <p onClick={toggleLogin}>Login</p>
-                        <p onClick={() => window.location.href = '/SignUp?cadastro=empresa'}>Cadastro Empresa</p>
-                        <p onClick={() => window.location.href = '/SignUp'}>Cadastro Cliente</p>
-                </div>
-            </Drawer>
-            <Dialog open={state.login} onClose={toggleLogin}>
-                <DialogTitle>Login</DialogTitle>
-                <Login />
-            </Dialog>
+          <img src={LogoSavingGrace} />
+          <h4>SAVING GRACE</h4>
+          {/* <Button color="inherit">Login</Button> */}
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        anchor={'left'}
+        open={state.menuLateral}
+        onClose={toggleMenuLateral}>
+        <div className={styles.menuLateral}>
+          <p style={{ cursor: 'default' }}>
+            {JSON.parse(localStorage.getItem('session'))
+              ? `Bem vindo, ${
+                  JSON.parse(localStorage.getItem('session'))?.nome
+                }`
+              : 'Faça login ou cadastre-se'}
+          </p>
+          <p onClick={() => (window.location.href = '/')}>Home</p>
+          <p
+            onClick={() => (window.location.href = '/SignUp?cadastro=empresa')}>
+            Cadastro Empresa
+          </p>
+          <p onClick={() => (window.location.href = '/SignUp')}>
+            Cadastro Cliente
+          </p>
+          {JSON.parse(localStorage.getItem('session')) ? null : (
+            <p onClick={toggleLogin}>Login</p>
+          )}
+          {JSON.parse(localStorage.getItem('session')) ? (
+            <p
+              onClick={() => {
+                localStorage.removeItem('session');
+                window.location.href = '/';
+              }}>
+              Logout
+            </p>
+          ) : null}
         </div>
-    );
+      </Drawer>
+      <Dialog open={state.login} onClose={toggleLogin}>
+        <DialogTitle>Login</DialogTitle>
+        <Login />
+      </Dialog>
+    </div>
+  );
 }
