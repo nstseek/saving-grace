@@ -1,7 +1,7 @@
 @import '../../scss/variables.scss';
 
 div.paginaEmpresa {
-    --test: calc(100vw - 250px);
+    --size: calc(100vw - 250px);
 
     div.description {
         padding: 0px 30px 0px 30px;
@@ -9,8 +9,8 @@ div.paginaEmpresa {
         text-justify: inter-word;
     }
     img {
-        width: var(--test);
-        height: var(--test);
+        width: var(--size);
+        height: var(--size);
         max-width: 250px;
         max-height: 250px;
         object-fit: cover;

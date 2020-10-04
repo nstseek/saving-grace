@@ -29,6 +29,7 @@ const Empresa = () => {
                 <Button>
                     Doar
                 </Button>
+                <Box height="20px"></Box>
             </Grid>
         </div>
     )
