@@ -20,7 +20,6 @@ const Signup = (props: RouteProps) => {
     });
 
     const click = () => {
-
         Api.post('/Usuario', {
             nome: state.nome,
             saldo: 10,
@@ -39,6 +38,7 @@ const Signup = (props: RouteProps) => {
                     UsuarioId: JSON.parse(localStorage.getItem('session')).id
                 }).then(response => {
                     console.log(response.data.data);
+                    window.location.href = '/';
                 })
             }
         });
