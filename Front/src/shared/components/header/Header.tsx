@@ -9,6 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import LogoSavingGrace from '../../../assets/images/logo_sg.png';
 import styles from './Header.module.scss';
 import Drawer from '@material-ui/core/Drawer';
+import { Dialog, DialogTitle } from '@material-ui/core';
+import Login from '../login/Login';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,9 +30,12 @@ export default function Header() {
     const classes = useStyles();
     const [state, setState] = React.useState({
         menuLateral: false,
+        login: false
     });
 
-    const toggleMenuLateral = () => setState({ menuLateral: !state.menuLateral });
+    const toggleMenuLateral = () => setState({...state, menuLateral: !state.menuLateral });
+
+    const toggleLogin = () => setState({...state, login: !state.login, menuLateral: false});
 
     return (
         <div className={classes.root}>
@@ -43,16 +48,22 @@ export default function Header() {
             News
           </Typography> */}
                     <img src={LogoSavingGrace} />
+                    <h4>SAVING GRACE</h4>
                     {/* <Button color="inherit">Login</Button> */}
                 </Toolbar>
             </AppBar>
             <Drawer anchor={'left'} open={state.menuLateral} onClose={toggleMenuLateral}>
                 <div className={styles.menuLateral}>
-                    <p>123</p>
-                    <p>123</p>
-                    <p>123</p>
+                        <p onClick={() => window.location.href = '/'}>Home</p>
+                        <p onClick={toggleLogin}>Login</p>
+                        <p onClick={() => window.location.href = '/SignUp?cadastro=empresa'}>Cadastro Empresa</p>
+                        <p onClick={() => window.location.href = '/SignUp'}>Cadastro Cliente</p>
                 </div>
             </Drawer>
+            <Dialog open={state.login} onClose={toggleLogin}>
+                <DialogTitle>Login</DialogTitle>
+                <Login />
+            </Dialog>
         </div>
     );
 }

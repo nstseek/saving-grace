@@ -1,6 +1,7 @@
 @import '../../scss/index.scss';
 
 div.paginaHome {
+    overflow-x: hidden;
     div.maisEmpresas {
         @include non-phone {
             max-width: 1000px;

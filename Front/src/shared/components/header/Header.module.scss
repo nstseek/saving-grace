@@ -15,6 +15,7 @@ div.header {
     img {
         object-fit: contain;
         height: 50px;
+        margin-right: 10px;
     }
 }
 
@@ -26,5 +27,10 @@ div.header {
         border-bottom: 1px solid lightgray;
         margin: 0;
         padding: 15px;
+        cursor: pointer;
+
+        &:hover {
+            color: $purple;
+        }
     }
 }

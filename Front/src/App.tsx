@@ -34,7 +34,7 @@ function App() {
               <Route path={Routes.Apoiando} component={Apoiando} />
               <Route path={Routes.SignUp} component={Signup} />
               {/* {this.props.isLogged ? <Route path={Routes.Calendario} component={Calendario} /> : null} */}
-              {/* <Redirect path="/" to={this.props.isLogged ? Routes.Calendario : Routes.Login} /> */}
+              <Redirect path="/" to={Routes.Home} />
             </Switch>
           </BrowserRouter>
       </ThemeProvider>
