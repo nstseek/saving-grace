@@ -1,8 +1,11 @@
+@import '../../scss/index.scss';
+
 div.paginaHome {
-
-
     div.maisEmpresas {
-
+        @include non-phone {
+            max-width: 1000px;
+            margin: auto
+        }
         padding: 12px;
 
 
@@ -11,5 +14,66 @@ div.paginaHome {
             justify-content: space-between;
             align-items: center;
         }
+
+        .list {
+            margin: 20px 0;
+            flex-wrap: nowrap;
+
+            .item {
+                margin-right: 15px;
+                min-width: 220px;
+                height: auto !important;
+
+                .img {
+                    height: 170px;
+                }
+            }
+        }
+    }
+
+    .abas {
+        background-color: darken($purple, 10);
+        color: white;
+
+        div > div:first-child {
+            @include non-phone {
+                max-width: 1000px;
+                margin: auto
+            }
+        }
+    }
+
+    div.cadastreSe {
+        padding: 15px;
+        background-color: $purple;
+        color: white;
+
+        & > div {
+            @include non-phone {
+                max-width: 1000px;
+                margin: auto
+            }
+        }
+
+        p {
+            margin: 0;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            margin-bottom: 2rem;
+        }
+    }
+}
+
+div.mobile {
+    @include non-phone {
+        display: none;
+    }
+}
+
+div.pc {
+    @include phone {
+        display: none;
     }
 }

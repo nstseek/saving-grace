@@ -3,12 +3,17 @@ import  React from 'react';
 import StarIcon from '@material-ui/icons/Star';
 
 const StarList = (props) => {
+
+    const style = {
+        marginBottom: '0.5rem'
+    }
+
     var list = [];
     for(let i = 0; i < props.count; i++) {
-        list.push(<StarIcon key={i} color="primary" />);
+        list.push(<StarIcon key={i} color="primary"/>);
     }
     return (
-        <div>
+        <div style={style}>
             {list}
         </div>
     )

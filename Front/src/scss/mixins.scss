@@ -1,0 +1,65 @@
+@mixin phone {
+	@media only screen and (orientation: portrait) {
+		@content;
+	}
+}
+
+@mixin phone-sm {
+	@media only screen and (max-width: 360px) {
+		@content;
+	}
+}
+
+@mixin phone-md {
+	@media only screen and (max-width: 700px) {
+		@content;
+	}
+}
+
+@mixin phone-lg {
+	@media only screen and (min-width: 700px) and (max-width: 1024px) {
+		@content;
+	}
+}
+
+@mixin tablet-lg {
+	@media only screen and (min-width: 800px) and (max-width: 1200px) {
+		@content;
+	}
+}
+
+@mixin tablet-pc {
+	@media only screen and (min-width: 700px) {
+		@content;
+	}
+}
+
+@mixin pc-xs {
+	@media only screen and (min-width: 600px) and (max-width: 1024px) {
+		@content;
+	}
+}
+
+@mixin pc-sm {
+	@media only screen and (orientation: landscape) and (max-width: 1367px) and (min-width: 1025px) {
+		@content;
+	}
+}
+
+@mixin full-hd-plus {
+	@media only screen and (orientation: landscape) and (min-width: 1920px) {
+		@content;
+	}
+}
+
+@mixin pc-lg {
+	@media only screen and (orientation: landscape) and (min-width: 1921px) {
+		@content;
+	}
+}
+
+@mixin non-phone {
+	@media only screen and (orientation: landscape), (min-width: 1025px) {
+		@content;
+	}
+}
