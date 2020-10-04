@@ -16,9 +16,12 @@ export const baseInit: InitObject<Base> = {
   }
 };
 
-export function initConfig<T extends Sequelize.Model>(tableName: string): Sequelize.InitOptions<T> {
+export function initConfig<T extends Sequelize.Model>(
+  tableName: string
+): Sequelize.InitOptions<T> {
   return {
     sequelize,
-    tableName    
+    tableName,
+    freezeTableName: true
   };
 }

@@ -3,6 +3,7 @@ import { InitObject } from '../utils/types';
 import { Avaliacao } from './Avaliacao';
 import { Base, baseInit, initConfig } from './Base';
 import { Comentario } from './Comentario';
+import { Imagem } from './Imagem';
 import { Premio } from './Premio';
 import { Transacao } from './Transacao';
 import { Usuario } from './Usuario';
@@ -19,10 +20,11 @@ export class Empresa extends Base {
   dataLimite?: string;
   instagram?: string;
   youtube?: string;
-  Premio: Premio[];
-  Comentario: Comentario[];
-  Avaliacao: Avaliacao[];
-  Transacao: Transacao[];
+  Imagem?: Imagem[] | Imagem;
+  Premio?: Premio[];
+  Comentario?: Comentario[];
+  Avaliacao?: Avaliacao[];
+  Transacao?: Transacao[];
 }
 
 const initObj: InitObject<Empresa> = {

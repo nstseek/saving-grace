@@ -3,6 +3,7 @@ import { Model } from 'sequelize/types';
 import { Avaliacao } from '../models/Avaliacao';
 import { Comentario } from '../models/Comentario';
 import { Empresa } from '../models/Empresa';
+import { Imagem } from '../models/Imagem';
 import { Premio } from '../models/Premio';
 import { Transacao } from '../models/Transacao';
 import { Usuario } from '../models/Usuario';
@@ -29,6 +30,7 @@ router.get(
         premio?: 'true' | 'false';
         transacao?: 'true' | 'false';
         comentario?: 'true' | 'false';
+        imagem?: 'true' | 'false';
       }
     >,
     res
@@ -37,6 +39,9 @@ router.get(
       const include = [];
       if (req.query.usuario === 'true') {
         include.push(Usuario);
+      }
+      if (req.query.imagem === 'true') {
+        include.push(Imagem);
       }
       if (req.query.transacao === 'true') {
         include.push(Transacao);
@@ -103,6 +108,7 @@ router.get(
         );
       }
     } catch (e) {
+      console.log(e);
       createResponse(500, e, req, res);
     }
   }
@@ -110,9 +116,17 @@ router.get(
 
 router.post(
   '',
-  async (req: Request<null, HttpResponse<Empresa>, Empresa>, res) => {
+  async (
+    req: Request<null, HttpResponse<Empresa>, Empresa>,
+    res
+  ) => {
     try {
-      const response = await Empresa.create(req.body);
+      let response: Empresa;
+      if (req.body.Imagem) {
+        response = await Empresa.create(req.body, { include: [Imagem] });
+      } else {
+        response = await Empresa.create(req.body);
+      }
       createResponse(200, response, req, res);
     } catch (e) {
       createResponse(500, e, req, res);
@@ -163,6 +177,21 @@ router.delete(
           'Informe um ID válido por query parameter'
         );
       } else {
+        const empresa = await Empresa.findOne({
+          where: {
+            id: req.query.id
+          },
+          include: [Imagem]
+        });
+        if (empresa.Imagem) {
+          if (Array.isArray(empresa.Imagem)) {
+            for (const img of empresa.Imagem) {
+              await Imagem.destroy({ where: { id: img.id } });
+            }
+          } else {
+            await Imagem.destroy({ where: { id: empresa.Imagem.id } });
+          }
+        }
         createResponse(
           200,
           await Empresa.destroy({

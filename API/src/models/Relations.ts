@@ -69,8 +69,8 @@ Favorito.belongsTo(Empresa, {
 
 // Imagem relations
 
-Empresa.hasMany(Imagem);
-Imagem.belongsTo(Empresa);
+Empresa.hasOne(Imagem, { onDelete: 'CASCADE'});
+Imagem.belongsTo(Empresa, { onDelete: 'CASCADE'});
 
 // Premio relations
 
