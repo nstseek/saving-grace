@@ -100,7 +100,7 @@ router.post(
   '',
   async (req: Request<null, HttpResponse<Transacao>, Transacao>, res) => {
     try {
-      const response = await Transacao.create(req.body);
+      // const response = await Transacao.create(req.body);
       const empresa = await Empresa.findOne({
         where: { id: req.body.EmpresaId }
       });
@@ -108,14 +108,14 @@ router.post(
         where: { id: req.body.UsuarioId }
       });
       await Empresa.update(
-        { saldo: empresa.saldo + req.body.valor },
+        { saldo: Number(empresa.saldo) + Number(req.body.valor) },
         { where: { id: empresa.id } }
       );
       await Usuario.update(
-        { saldo: usuario.saldo - req.body.valor },
+        { saldo: Number(usuario.saldo) - Number(req.body.valor) },
         { where: { id: usuario.id } }
       );
-      createResponse(200, response, req, res);
+      createResponse(200, req.body, req, res);
     } catch (e) {
       createResponse(500, e, req, res);
     }
