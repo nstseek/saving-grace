@@ -1,6 +1,7 @@
 import Sequelize from 'sequelize';
 import { InitObject } from '../utils/types';
 import { Base, baseInit, initConfig } from './Base';
+import { Favorito } from './Favorito';
 import { Imagem } from './Imagem';
 
 export class Usuario extends Base {
@@ -12,6 +13,7 @@ export class Usuario extends Base {
   cpf?: string;
   Imagem?: Imagem;
   ImagemId: number;
+  Favorito: Favorito[];
 }
 
 const initObj: InitObject<Usuario> = {
