@@ -11,13 +11,9 @@ import { Premio } from './models/Premio';
 import { Transacao } from './models/Transacao';
 import { Favorito } from './models/Favorito';
 import './models/Relations';
-
-export function log(...args: string[]) {
-  console.log(
-    chalk.bold(chalk.gray(`[${new Date().toISOString()}]:`)),
-    ...args
-  );
-}
+import router from './controllers';
+import { log } from './utils/log';
+import createResponse from './utils/httpResponseFactory';
 
 log(chalk.blueBright('Starting server...'));
 async function testDb() {
@@ -33,6 +29,7 @@ async function testDb() {
   await Premio.sync();
   await Transacao.sync();
   await Usuario.sync();
+  log(chalk.yellow('Tables synced.'));
 }
 testDb();
 
@@ -44,31 +41,22 @@ const server = express();
 
 log(chalk.blue('Express instantiated.'));
 
-server.use((req, res, next) => {
-  let color = chalk.blue;
-  if (res.statusCode >= 200 && res.statusCode < 300) {
-    color = chalk.green;
-  } else if (res.statusCode >= 300 && res.statusCode < 400) {
-    color = chalk.yellow;
-  } else if (res.statusCode >= 400) {
-    color = chalk.red;
-  }
-  log(
-    color(`${res.statusCode} ${res.statusMessage}`),
-    chalk.white(`| IP ${req.ip} ${req.method} ${req.path}`)
-  );
-  next();
-});
-
 server.use(cors());
 
 server.use(express.json());
 
-server.get('/', async (_req, res) => {
+server.use(router);
+
+server.get('/', async (req, res) => {
   try {
-    res.send(await Usuario.findAll());
+    createResponse(
+      200,
+      'Server working just fine! Try to GET one controller.',
+      req,
+      res
+    );
   } catch (e) {
-    res.send(e);
+    createResponse(500, e, req, res);
   }
 });
 
