@@ -28,6 +28,15 @@ div.paginaHome {
                 .img {
                     height: 170px;
                 }
+
+                .header span {
+                    font-size: 1.2rem;
+                }
+
+                .desc {
+                    max-height: 145px;
+                    overflow: hidden;
+                }
             }
         }
     }

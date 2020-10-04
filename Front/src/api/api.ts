@@ -1,15 +1,11 @@
 import axios from 'axios';
+import { loadConfig } from '../App';
+import configureStore from '../configureStore';
+import { LoadingState, updateLoading } from '../stores/system';
+import SystemActionTypes from '../stores/system/system.action-types';
 
 const Api = axios.create({
     baseURL: 'https://saving-grace-app.herokuapp.com'
 });
-
-Api.interceptors.request.use(config => {
-    const token = localStorage.getItem('token');
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`
-    }
-    return config
-}, err => Promise.reject(err));
 
 export default Api;

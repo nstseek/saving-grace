@@ -1,5 +1,5 @@
 import { Card, CardContent } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 import Header from './shared/components/header/Header';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -10,6 +10,11 @@ import Home from './pages/home/Home';
 import Empresa from './pages/empresa/Empresa';
 import Apoiando from './pages/apoiando/Apoiando';
 import Signup from './pages/signup/signup';
+import Loading from './shared/components/loading/Loading';
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import { AppState } from './configureStore';
+import { LoadingState } from './stores/system';
 
 const theme = createMuiTheme({
   palette: {
@@ -22,7 +27,17 @@ const theme = createMuiTheme({
   },
 });
 
-function App() {
+export const loadConfig = {
+  open: false
+};
+
+const App = (props) => {
+
+  const [loading, setLoading] = useState(loadConfig.open);
+    useEffect(() => {
+        setLoading(loadConfig.open)
+    }, [loadConfig.open]);
+
   return (
     <div className='App'>
       <ThemeProvider theme={theme}>
@@ -37,6 +52,7 @@ function App() {
               <Redirect path="/" to={Routes.Home} />
             </Switch>
           </BrowserRouter>
+          <Loading open={props.system.loading === LoadingState.Loading}/>
       </ThemeProvider>
       {/* <Card>
         <CardContent>Saving Grace app working!</CardContent>
@@ -45,4 +61,8 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = ({system}: AppState) => ({
+  system
+})
+
+export default connect(mapStateToProps)(App);

@@ -3,9 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { store } from './configureStore';
+import configureStore from './configureStore';
 import { Provider } from 'react-redux';
 import { LinkContext, routeLinks } from './routes';
+import Api from './api/api';
+import { LoadingState, updateLoading } from './stores/system';
+import SystemActionTypes from './stores/system/system.action-types';
+
+const store = configureStore();
+
+Api.interceptors.request.use(config => {
+  store.dispatch(updateLoading(SystemActionTypes.UPDATE_LOADING, {loading: LoadingState.Loading}));
+  return config
+}, err => Promise.reject(err));
+
+Api.interceptors.response.use(config => {
+  store.dispatch(updateLoading(SystemActionTypes.UPDATE_LOADING, {loading: LoadingState.Success}));
+  return config    
+}, err => {
+  store.dispatch(updateLoading(SystemActionTypes.UPDATE_LOADING, {loading: LoadingState.Failed}));
+  return Promise.reject(err);
+});
 
 ReactDOM.render(
   <Provider store={store}>

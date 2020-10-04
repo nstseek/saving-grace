@@ -1,26 +1,44 @@
 import {Box, Button, Grid, Typography} from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { RouteProps, withRouter } from 'react-router-dom';
+import Api from '../../api/api';
 import StarList from '../../shared/components/star-list/starList';
 import styles from './Empresa.module.scss';
 
-const Empresa = () => {
+const Empresa = (props: RouteProps) => {
+
+    const [empresa, setEmpresa] = useState(null);
+    useEffect(() => {
+        const idEmpresa = new URLSearchParams(props.location.search).get('idEmpresa');
+        Api.get('/Empresa?id=' + idEmpresa + '&to=1&imagem=true')
+            .then(res => {
+                console.log(res);
+                setEmpresa({
+                    ...res.data.data[0],
+                    imgLink: 'https://saving-grace-app.herokuapp.com/imagem/src?id=' + res.data.data[0]?.Imagem.id
+                });
+            });
+    }, []);
+
     return (
         <div className={styles.paginaEmpresa}>
             <Grid container justify="center" alignItems="center" direction="column">
                 <Box height="20px"></Box>
-                <Typography className={styles.description} variant="h3">Empresa 0001</Typography>
+                <img src={empresa?.imgLink} />
+                <Box height="30px"></Box>
+                <Typography className={styles.description} variant="h4">
+                    {empresa?.nome}
+                </Typography>
 
                 <Box height="30px"></Box>
-                <StarList count={4} />
+                <StarList count={5} />
 
                 <Box height="20px"></Box>
-                <div className={styles.description}>
-                    <Typography variant="caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lobortis libero vel lectus blandit, vel porta nisl viverra. Quisque in placerat est. Nam porta dui in ligula iaculis dictum. Donec interdum ligula nisi, sit amet feugiat ligula interdum eu. Donec dapibus tortor sed urna mattis convallis. Cras pulvinar quam id sem pharetra, vitae eleifend elit interdum. Cras maximus risus et ullamcorper efficitur. Curabitur ac blandit orci. </Typography>
+                <div className={styles?.description}>
+                    <Typography variant="caption">
+                        {empresa?.descricao}
+                    </Typography>
                 </div>
-            
-                <Box height="30px"></Box>
-                <img src="/test.jpg">
-                </img>
 
                 <Box height="20px"></Box>
                 <Typography display="block" variant="caption">Arrecadado este mês:</Typography>
@@ -35,4 +53,4 @@ const Empresa = () => {
     )
 }
 
-export default Empresa;
+export default withRouter(Empresa);
