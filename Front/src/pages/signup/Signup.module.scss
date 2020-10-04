@@ -24,6 +24,9 @@ div.paginaSignup {
 
     form {
         max-width: 400px;
+        width: 100%;
         width: calc(100% - 60px);
+        display: flex;
+        flex-direction: column;
     }
 }

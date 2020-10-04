@@ -13,7 +13,7 @@ const EmpresaCardApoiando = (props) => {
                     <div className={styles.infos}>
                         <Typography variant="h5">{props.empresaName}</Typography>
                         <Typography variant="h6">{props.points} Pontos</Typography>
-                        <StarList count={props.stars}></StarList>
+                        <StarList count={props}></StarList>
                     </div>
                 </Grid>
             </Grid>
