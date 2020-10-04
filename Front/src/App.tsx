@@ -8,6 +8,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Routes } from './routes';
 import Home from './pages/home/Home';
 import Empresa from './pages/empresa/Empresa';
+import Apoiando from './pages/apoiando/Apoiando';
 
 const theme = createMuiTheme({
   palette: {
@@ -29,6 +30,7 @@ function App() {
             <Switch>
               <Route path={Routes.Home} component={Home} exact={true} />
               <Route path={Routes.Empresa} component={Empresa} />
+              <Route path={Routes.Apoiando} component={Apoiando} />
               {/* {this.props.isLogged ? <Route path={Routes.Calendario} component={Calendario} /> : null} */}
               {/* <Redirect path="/" to={this.props.isLogged ? Routes.Calendario : Routes.Login} /> */}
             </Switch>
