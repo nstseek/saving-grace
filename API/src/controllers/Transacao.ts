@@ -1,6 +1,8 @@
 import express, { Request } from 'express';
 import { Model } from 'sequelize/types';
+import { Empresa } from '../models/Empresa';
 import { Transacao } from '../models/Transacao';
+import { Usuario } from '../models/Usuario';
 import createResponse from '../utils/httpResponseFactory';
 import { HttpResponse } from '../utils/types';
 
@@ -99,6 +101,20 @@ router.post(
   async (req: Request<null, HttpResponse<Transacao>, Transacao>, res) => {
     try {
       const response = await Transacao.create(req.body);
+      const empresa = await Empresa.findOne({
+        where: { id: req.body.EmpresaId }
+      });
+      const usuario = await Usuario.findOne({
+        where: { id: req.body.UsuarioId }
+      });
+      await Empresa.update(
+        { saldo: empresa.saldo + req.body.valor },
+        { where: { id: empresa.id } }
+      );
+      await Usuario.update(
+        { saldo: usuario.saldo - req.body.valor },
+        { where: { id: usuario.id } }
+      );
       createResponse(200, response, req, res);
     } catch (e) {
       createResponse(500, e, req, res);

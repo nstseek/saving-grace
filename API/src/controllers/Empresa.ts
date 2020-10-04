@@ -13,6 +13,37 @@ import { HttpResponse } from '../utils/types';
 const router = express.Router();
 
 router.get(
+  '/financiadas',
+  async (
+    req: Request<
+      null,
+      HttpResponse<Empresa | Empresa[]>,
+      null,
+      {
+        from?: string;
+        to?: string;
+        UsuarioId: string;
+      }
+    >,
+    res
+  ) => {
+    try {
+      const transacoes = await Transacao.findAll({
+        where: { UsuarioId: req.query.UsuarioId },
+        include: Empresa
+      });
+      const empresas: Empresa[] = [];
+      transacoes.forEach((transacao) => {
+        empresas.push(transacao.Empresa);
+      });
+      createResponse(200, empresas, req, res);
+    } catch (e) {
+      createResponse(500, e, req, res);
+    }
+  }
+);
+
+router.get(
   '',
   async (
     req: Request<
@@ -108,7 +139,6 @@ router.get(
         );
       }
     } catch (e) {
-      console.log(e);
       createResponse(500, e, req, res);
     }
   }
@@ -116,10 +146,7 @@ router.get(
 
 router.post(
   '',
-  async (
-    req: Request<null, HttpResponse<Empresa>, Empresa>,
-    res
-  ) => {
+  async (req: Request<null, HttpResponse<Empresa>, Empresa>, res) => {
     try {
       let response: Empresa;
       if (req.body.Imagem) {
