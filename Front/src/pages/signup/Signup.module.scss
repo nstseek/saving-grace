@@ -5,20 +5,25 @@ div.paginaSignup {
     input {
         background-color: lightgrey;
         border-style: none;
-        width: calc(100% - 60px);
-        margin-left: 20px;
-        padding: 10px;
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
     
     .inputLabel {
-        margin-left: 20px;
+        font-size: larger;
     }
 
     .signUpBtn {
-        width: calc(100% - 40px);
         padding: 10px;
+        width: 100%;
         color: white;
         font-weight: bold;
         background-color: $purple;
+    }
+
+    form {
+        max-width: 400px;
+        width: calc(100% - 60px);
     }
 }
