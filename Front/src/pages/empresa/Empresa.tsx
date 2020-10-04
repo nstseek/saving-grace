@@ -37,15 +37,16 @@ const Empresa = (props: RouteProps) => {
   }, []);
 
   const toggleDoar = () => {
+    if (!localStorage.getItem('session')) {
+      window.location.href = '/SignUp';
+      return;
+    }
     setState({ ...state, modalDoar: !state.modalDoar });
   };
 
   const doar = () => {
     toggleDoar();
     const idUsuario = JSON.parse(localStorage.getItem('session'))?.id;
-    if (!idUsuario) {
-      window.location.href = '/';
-    }
     const idEmpresa = new URLSearchParams(props.location.search).get(
       'idEmpresa'
     );
