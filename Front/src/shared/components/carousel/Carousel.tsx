@@ -14,112 +14,141 @@ import StarList from '../star-list/starList';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
-    {
-        label: 'San Francisco – Oakland Bay Bridge, United States',
-        imgPath:
-            'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-        label: 'Bird',
-        imgPath:
-            'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-        label: 'Bali, Indonesia',
-        imgPath:
-            'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
-    },
-    {
-        label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
-        imgPath:
-            'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-        label: 'Goč, Serbia',
-        imgPath:
-            'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
+  {
+    label: 'San Francisco – Oakland Bay Bridge, United States',
+    imgPath:
+      'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60'
+  },
+  {
+    label: 'Bird',
+    imgPath:
+      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60'
+  },
+  {
+    label: 'Bali, Indonesia',
+    imgPath:
+      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80'
+  },
+  {
+    label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
+    imgPath:
+      'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60'
+  },
+  {
+    label: 'Goč, Serbia',
+    imgPath:
+      'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60'
+  }
 ];
 
 const useStyles = makeStyles((theme) => ({
-    header: {
-        display: 'flex',
-        alignItems: 'center',
-        height: 50,
-        paddingLeft: theme.spacing(4),
-        color: 'white',
-        backgroundColor: 'transparent',
-    },
-    img: {
-        height: 500,
-        display: 'flex',
-        maxWidth: 'auto',
-        overflow: 'hidden',
-        width: '100%',
-    },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    height: 50,
+    paddingLeft: theme.spacing(4),
+    color: 'white',
+    backgroundColor: 'transparent'
+  },
+  img: {
+    height: 500,
+    display: 'flex',
+    maxWidth: 'auto',
+    overflow: 'hidden',
+    width: '100%'
+  }
 }));
 
-function Carousel() {
-    const classes = useStyles();
-    const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
-    const maxSteps = tutorialSteps.length;
+function Carousel(props: {
+  itens?: {
+    id: string;
+    titulo: string;
+    desc: string;
+    img: string;
+    rating: number;
+  }[];
+}) {
+  const classes = useStyles();
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const maxSteps = props.itens.length;
 
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
 
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
 
-    const handleStepChange = (step: number) => {
-        setActiveStep(step);
-    };
+  const handleStepChange = (step: number) => {
+    setActiveStep(step);
+  };
 
-    return (
-        <div className={styles.root}>
-            <AutoPlaySwipeableViews
-                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                index={activeStep}
-                onChangeIndex={handleStepChange}
-                enableMouseEvents
-            >
-                {tutorialSteps.map((step, index) => (
-                    <div key={step.label}>
-                        {Math.abs(activeStep - index) <= 2 ? (
-                            <img className={classes.img} src={step.imgPath} alt={step.label} />
-                        ) : null}
-                    </div>
-                ))}
-            </AutoPlaySwipeableViews>
-            <div className={styles.content}>
-                <p className={styles.badge}>TOP 5</p>
-                <Typography variant="h4">{tutorialSteps[activeStep].label}</Typography>
-                <StarList count={5} />
-                <Typography variant="subtitle1">Descrição empresa mock foda lorem ipsum dolor sit amet lul</Typography>
-                <Button variant="outlined">Financiar</Button>            
-            </div>
-            <div className={styles.stepper}>
-                <MobileStepper
-                    steps={maxSteps}
-                    position="static"
-                    variant="text"
-                    activeStep={activeStep}
-                    nextButton={
-                        <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-                            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-                        </Button>
-                    }
-                    backButton={
-                        <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                        </Button>
-                    }
-                />
-            </div>
-        </div>
-    );
+  return (
+    <div className={styles.root}>
+      <AutoPlaySwipeableViews
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        index={activeStep}
+        onChangeIndex={handleStepChange}
+        enableMouseEvents>
+        {props.itens.map((step, index) => (
+          <div key={index}>
+            {Math.abs(activeStep - index) <= 2 ? (
+              <img
+                className={classes.img}
+                src={step.img}
+                alt={step.titulo}
+              />
+            ) : null}
+          </div>
+        ))}
+      </AutoPlaySwipeableViews>
+      <div className={styles.content}>
+        <p className={styles.badge}>TOP 3</p>
+        <Typography variant='h4'>{props.itens[activeStep].titulo}</Typography>
+        <StarList count={props.itens[activeStep].rating} />
+        <Typography variant='subtitle1'>
+          {props.itens[activeStep].desc}
+        </Typography>
+        <Button variant='outlined' onClick={() =>
+                (window.location.href = '/empresa?idEmpresa=' + props.itens[activeStep].id)
+              }>Financiar</Button>
+      </div>
+      <div className={styles.stepper}>
+        <MobileStepper
+          steps={maxSteps}
+          position='static'
+          variant='text'
+          activeStep={activeStep}
+          nextButton={
+            <Button
+              size='small'
+              onClick={handleNext}
+              disabled={activeStep === maxSteps - 1}>
+              {theme.direction === 'rtl' ? (
+                <KeyboardArrowLeft />
+              ) : (
+                <KeyboardArrowRight />
+              )}
+            </Button>
+          }
+          backButton={
+            <Button
+              size='small'
+              onClick={handleBack}
+              disabled={activeStep === 0}>
+              {theme.direction === 'rtl' ? (
+                <KeyboardArrowRight />
+              ) : (
+                <KeyboardArrowLeft />
+              )}
+            </Button>
+          }
+        />
+      </div>
+    </div>
+  );
 }
 
 export default Carousel;
