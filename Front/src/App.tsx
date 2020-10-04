@@ -9,6 +9,7 @@ import { Routes } from './routes';
 import Home from './pages/home/Home';
 import Empresa from './pages/empresa/Empresa';
 import Apoiando from './pages/apoiando/Apoiando';
+import Signup from './pages/signup/signup';
 
 const theme = createMuiTheme({
   palette: {
@@ -31,6 +32,7 @@ function App() {
               <Route path={Routes.Home} component={Home} exact={true} />
               <Route path={Routes.Empresa} component={Empresa} />
               <Route path={Routes.Apoiando} component={Apoiando} />
+              <Route path={Routes.SignUp} component={Signup} />
               {/* {this.props.isLogged ? <Route path={Routes.Calendario} component={Calendario} /> : null} */}
               {/* <Redirect path="/" to={this.props.isLogged ? Routes.Calendario : Routes.Login} /> */}
             </Switch>
