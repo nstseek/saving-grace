@@ -39,7 +39,7 @@ const Home = () => {
         }))
       );
     });
-    Api.get('/Empresa?from=3&to=7&imagem=true').then((res) => {
+    Api.get('/Empresa?from=3&imagem=true').then((res) => {
       console.log(res.data.data);
       setValueEmpresas(
         res.data.data.map((e) => ({
