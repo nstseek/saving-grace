@@ -7,6 +7,7 @@ import CarouselMobile from './shared/components/carousel-mobile/CarouselMobile';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Routes } from './routes';
 import Home from './pages/home/Home';
+import Empresa from './pages/empresa/Empresa';
 
 const theme = createMuiTheme({
   palette: {
@@ -26,7 +27,8 @@ function App() {
         <Header />
         <BrowserRouter>
             <Switch>
-              <Route path={Routes.Home} component={Home} />
+              <Route path={Routes.Home} component={Home} exact={true} />
+              <Route path={Routes.Empresa} component={Empresa} />
               {/* {this.props.isLogged ? <Route path={Routes.Calendario} component={Calendario} /> : null} */}
               {/* <Redirect path="/" to={this.props.isLogged ? Routes.Calendario : Routes.Login} /> */}
             </Switch>
