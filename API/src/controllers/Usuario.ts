@@ -11,7 +11,7 @@ router.get(
   '',
   async (
     req: Request<
-      never,
+      null,
       HttpResponse<Usuario | Usuario[]>,
       null,
       {
@@ -35,42 +35,86 @@ router.get(
             res,
             'Informe um ID válido por query parameter'
           );
+          return;
         }
-        createResponse(
-          200,
-          await Usuario.findAll({
-            where: {
-              id: req.query.id
-            }
-          }),
-          req,
-          res
-        );
+        if (req.query.imagem === 'true') {
+          createResponse(
+            200,
+            await Usuario.findAll({
+              where: {
+                id: req.query.id
+              },
+              include: Imagem
+            }),
+            req,
+            res
+          );
+        } else {
+          createResponse(
+            200,
+            await Usuario.findAll({
+              where: {
+                id: req.query.id
+              }
+            }),
+            req,
+            res
+          );
+        }
       } else if (req.query.to) {
-        createResponse(
-          200,
-          await Usuario.findAll({
-            limit: Number(req.query.to) - (Number(req.query.from) || 0),
-            offset: Number(req.query.from) || 0,
-            order: req.query.orderBy
-              ? [[req.query.orderBy, req.query.orderType || 'ASC']]
-              : []
-          }),
-          req,
-          res
-        );
+        if (req.query.imagem === 'true') {
+          createResponse(
+            200,
+            await Usuario.findAll({
+              limit: Number(req.query.to) - (Number(req.query.from) || 0),
+              offset: Number(req.query.from) || 0,
+              order: req.query.orderBy
+                ? [[req.query.orderBy, req.query.orderType || 'ASC']]
+                : [],
+              include: Imagem
+            }),
+            req,
+            res
+          );
+        } else {
+          createResponse(
+            200,
+            await Usuario.findAll({
+              limit: Number(req.query.to) - (Number(req.query.from) || 0),
+              offset: Number(req.query.from) || 0,
+              order: req.query.orderBy
+                ? [[req.query.orderBy, req.query.orderType || 'ASC']]
+                : []
+            }),
+            req,
+            res
+          );
+        }
       } else {
-        createResponse(
-          200,
-          await Usuario.findAll({
-            order: req.query.orderBy
-              ? [[req.query.orderBy, req.query.orderType || 'ASC']]
-              : [],
-            include: Imagem
-          }),
-          req,
-          res
-        );
+        if (req.query.imagem === 'true') {
+          createResponse(
+            200,
+            await Usuario.findAll({
+              order: req.query.orderBy
+                ? [[req.query.orderBy, req.query.orderType || 'ASC']]
+                : [],
+              include: Imagem
+            }),
+            req,
+            res
+          );
+        } else {
+          createResponse(
+            200,
+            await Usuario.findAll({
+              order: req.query.orderBy
+                ? [[req.query.orderBy, req.query.orderType || 'ASC']]
+                : []
+            }),
+            req,
+            res
+          );
+        }
       }
     } catch (e) {
       createResponse(500, e, req, res);
@@ -82,15 +126,12 @@ router.post(
   '',
   async (req: Request<null, HttpResponse<Usuario>, Usuario>, res) => {
     try {
-      console.log(req.body);
       if (req.body.Imagem) {
-        console.log('tem img');
         const response = await Usuario.create(req.body, {
           include: [Imagem]
         });
         createResponse(200, response, req, res);
       } else {
-        console.log('n tem img');
         const response = await Usuario.create(req.body);
         createResponse(200, response, req, res);
       }
@@ -169,6 +210,35 @@ router.delete(
           req,
           res
         );
+      }
+    } catch (e) {
+      createResponse(500, e, req, res);
+    }
+  }
+);
+
+router.post(
+  '/login',
+  async (
+    req: Request<
+      null,
+      HttpResponse<Usuario | string>,
+      {
+        email: string;
+        senha: string;
+      }
+    >,
+    res
+  ) => {
+    try {
+      const response = await Usuario.findOne({
+        where: {
+          email: req.body.email,
+          senha: req.body.senha
+        }
+      });
+      if (!response) {
+        createResponse(404, 'Usuário não encontrado', req, res);
       }
     } catch (e) {
       createResponse(500, e, req, res);
